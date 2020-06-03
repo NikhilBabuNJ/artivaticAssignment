@@ -1,0 +1,16 @@
+<table *ngIf="tableBody.length > 0" class="table table-striped">
+    <thead>
+        <tr>
+            <th *ngFor="let header of tableHeaders">{{header}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+            *ngFor="let body of tableBody | slice: (tableConfig.page-1) * tableConfig.pageSize : (tableConfig.page-1) * tableConfig.pageSize + tableConfig.pageSize; index as i">
+            <td>{{body['Cities']}}</td>
+        </tr>
+    </tbody>
+</table>
+<ngb-pagination *ngIf="tableBody.length > 0" [collectionSize]="tableBody.length" [maxSize]="4" [(page)]="tableConfig.page"
+        [pageSize]="tableConfig.pageSize">
+    </ngb-pagination>
