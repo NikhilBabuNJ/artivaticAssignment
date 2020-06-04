@@ -4,20 +4,25 @@
             (selectedItem)="getCitiesByState($event)">
         </app-dropdown>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <strong *ngIf="!selectedState" class="cstm-state">* Please select a state for data</strong>
         <strong *ngIf="selectedState" class="cstm-state">Selected state:  {{selectedState}}</strong>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-md-12 col-lg-6">
+            <strong *ngIf="!selectedState" class="cstm-state">* Please select a state for data</strong>
+        <strong *ngIf="selectedState" class="cstm-state">Selected state:  {{selectedState}}</strong>
             <div class="card">
                 <div class="card-body">
-                    <app-table [tableHeaders]="['Cities']" [tableBody]="cities" [tableConfig]="{page:1,pageSize:7}">
+                    <app-table [tableHeaders]="['Cities']" [tableBody]="cities" [tableConfig]="{page:1,pageSize:7}"
+                    (currentRow)="onRowClick($event)">
                     </app-table>
                 </div>
             </div>
         </div>
         <div class="col-md-12 col-lg-6">
+        <strong *ngIf="!selectedState" class="cstm-state"></strong>
+        <strong *ngIf="selectedState" class="cstm-state">** Showing ten cities from the state please click on particulary city name to diplay on map</strong>
             <div class="card">
                 <div class="card-body">
                     <app-google-map [markers]="markers" [keyToSearch]="selectedState"></app-google-map>

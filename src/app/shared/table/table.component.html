@@ -7,10 +7,10 @@
     <tbody>
         <tr
             *ngFor="let body of tableBody | slice: (tableConfig.page-1) * tableConfig.pageSize : (tableConfig.page-1) * tableConfig.pageSize + tableConfig.pageSize; index as i">
-            <td>{{body['Cities']}}</td>
+            <td title="Click here to see the city on map"  (click)="onRowClick(body['Cities'])">{{body['Cities']}}</td>
         </tr>
     </tbody>
 </table>
 <ngb-pagination *ngIf="tableBody.length > 0" [collectionSize]="tableBody.length" [maxSize]="4" [(page)]="tableConfig.page"
-        [pageSize]="tableConfig.pageSize">
+        [pageSize]="tableConfig.pageSize" >
     </ngb-pagination>

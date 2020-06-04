@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 
-// import {} from '@types/googlemaps';
-
 @Component({
   selector: 'app-google-map',
   templateUrl: './google-map.component.html',
@@ -15,9 +13,11 @@ export class GoogleMapComponent implements OnInit {
   public lng: number;
   public width = '100%';
   public height = '440px';
+  public _keyToSearch: any;
+
 
   @ViewChild('gmap', { static: true }) gmapElement: any;
-  _keyToSearch: any;
+
   @Input()
   public set keyToSearch(key) {
     if (key !== '') {
@@ -29,6 +29,7 @@ export class GoogleMapComponent implements OnInit {
   public get keyToSearch() {
     return this._keyToSearch;
   }
+  
   @Input()
   public set markers(data: any) {
     if (data) {
@@ -75,7 +76,6 @@ export class GoogleMapComponent implements OnInit {
     this.map = new google.maps.Map(this.gmapElement.nativeElement, {
       zoom: 4,
       center: { lat: this.lat, lng: this.lng },
-      zoomControl: false
     });
 
     if (this._markers.length > 0) {
@@ -94,7 +94,7 @@ export class GoogleMapComponent implements OnInit {
     let image = {
       url: '../assets/images/map-pointer.png',
       // This marker is 20 pixels wide by 32 pixels high.
-      size: new google.maps.Size(20, 32),
+      size: new google.maps.Size(30, 35),
       // The origin for this image is (0, 0).
       origin: new google.maps.Point(0, 0),
       // The anchor for this image is the base of the flagpole at (0, 32).
@@ -106,7 +106,7 @@ export class GoogleMapComponent implements OnInit {
         position: { lat: +this._markers[i].lat, lng: +this._markers[i].lng },
         map: map,
         icon: image,
-        // label: this.markers[i].name,
+        label: this._markers.length == 1 ? this._markers[i].city : '',
         shape: {
           coords: [1, 1, 1, 20, 18, 20, 18, 1],
           type: 'poly'
